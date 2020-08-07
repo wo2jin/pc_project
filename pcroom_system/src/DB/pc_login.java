@@ -6,23 +6,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class pc_login {
-	static boolean loginTest(String id, String password) {
+	public static boolean loginTest(String id, String password) {
 		boolean flag = false;
 		
-		Connection conn = null; // DB연결된 상태(세션)을 담은 객체
-        PreparedStatement pstm = null;  // SQL 문을 나타내는 객체
+		Connection conn = null; // DB�뿰寃곕맂 �긽�깭(�꽭�뀡)�쓣 �떞�� 媛앹껜
+        PreparedStatement pstm = null;  // SQL 臾몄쓣 �굹���궡�뒗 媛앹껜
         ResultSet rs = null;
-        // 쿼리문을 날린것에 대한 반환값을 담을 객체       
+        // 荑쇰━臾몄쓣 �궇由곌쾬�뿉 ���븳 諛섑솚媛믪쓣 �떞�쓣 媛앹껜       
         
         try {
-            // SQL 문장을 만들고 만약 문장이 질의어(SELECT문)라면
-            // 그 결과를 담을 ResulSet 객체를 준비한 후 실행시킨다.
+            // SQL 臾몄옣�쓣 留뚮뱾怨� 留뚯빟 臾몄옣�씠 吏덉쓽�뼱(SELECT臾�)�씪硫�
+            // 洹� 寃곌낵瑜� �떞�쓣 ResulSet 媛앹껜瑜� 以�鍮꾪븳 �썑 �떎�뻾�떆�궓�떎.
             String quary = "SELECT password FROM PCROOM_MEMBER where id = ?";            
             conn = DBConnection.getConnection();
             pstm = conn.prepareStatement(quary);
             pstm.setString(1, id);
             rs = pstm.executeQuery();  
-            /*  pcroom 테이블의 데이터 타입
+            /*  pcroom �뀒�씠釉붿쓽 �뜲�씠�꽣 ���엯
        
                 num NOT NULL NUMBER(4) -- int auto sequence
                 id VARCHAR2(10) -- String
@@ -41,11 +41,11 @@ public class pc_login {
             }
             
         } catch (SQLException sqle) {
-            System.out.println("SELECT문에서 예외 발생");
+            System.out.println("SELECT臾몄뿉�꽌 �삁�쇅 諛쒖깮");
             sqle.printStackTrace();
             
         }finally{
-            // DB 연결을 종료한다.
+            // DB �뿰寃곗쓣 醫낅즺�븳�떎.
             try{
                 if ( rs != null ){rs.close();}   
                 if ( pstm != null ){pstm.close();}   
